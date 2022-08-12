@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+.header {
+	text-align: center;
+	color: rgb(108, 48, 93);
+	margin:0 auto;
+	margin-bottom: 30px;
+	
+}
+
+
+
+.wrapper {
+	display: grid;
+	justify-content: center;
+	grid-template-columns: repeat(4, 200px);
+	grid-template-rows: repeat(3, 200px);
+	perspective: 1000px;
+
+}
+
+
+
+// .flip-container {
+// 	perspective: 1000px;
+// 	border: 1px solid black;
+// 	border-radius: 5px;
+// }
+// 	/* flip the pane when hovered */
+// 	.flip-container:hover .flipper, .flip-container.hover .flipper {
+// 		transform: rotateY(180deg);
+// 	}
+
+
+// /* flip speed goes here */
+// .flipper {
+// 	transition: 0.8s;
+// 	transform-style: preserve-3d;
+// 	position: relative;
+// 	width: 200px;
+// 	height: 200px;
+// }
+
+
+
+// /* hide back of pane during swap */
+// .front, .back {
+// 	backface-visibility: hidden;
+// 	border-radius: 5px;
+// 	position: absolute;
+// 	top: 0;
+// 	left: 0;
+// }
+
+// /* front pane, placed above back */
+// .front {
+// 	z-index: 2;
+// 	width: 200px;
+// 	height: 200px;
+// 	/* for firefox 31 */
+// 	transform: rotateY(0deg);	
+// }
+
+// /* back, initially hidden pane */
+// .back {
+// 	transform: rotateY(180deg);
+// 	width: 200px;
+// 	height: 200px;
+// 	object-fit: fill; 
+
+// 	img {
+// 		width: 200px;
+// 		height: 200px; 
+		
+// 	}
+// }
+
+
+
+
+.col {
+	border: 1px solid black;
+	border-radius: 5px;
+	transition: 0.8s;
+	transform-style: preserve-3d;
+	position: relative;
+	
+}
+
+// .col:hover {
+// 	transform: rotateY(180deg);
+// }
+
+
+
+.hover {
+	transform: rotateY(180deg);
+}
+
+.c1 {
+	z-index: 2;
+	background-color: aquamarine;
+	width: 200px;
+	height: 200px;
+	backface-visibility: hidden;
+	border-radius: 5px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: rotateY(0deg);	
+	cursor: pointer;
+
+}
+
+.c2 {
+	width: 200px;
+	height: 200px;
+	backface-visibility: hidden;
+	border-radius: 5px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: rotateY(180deg);
+	cursor: pointer;
+
+}
+
+.visibility {
+	visibility: hidden;
+}
+
