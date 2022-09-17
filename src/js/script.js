@@ -28,19 +28,17 @@ const generateCards = ({ name, image }) => {
         `
 }
 
-const cardsDiv = document.createElement('div')
-cardsDiv.classList.add('wrapper')
-
 const showCards = (dataBase) => {
-    sortingCards(dataBase)
-
-    cardsDiv.innerHTML = ''
+    sortingCards(cards)
+    const cardsDiv = document.createElement('div')
+    cardsDiv.classList.add('wrapper')
     cardsDiv.innerHTML = dataBase.reduce(
         (acc, card) => (acc += generateCards(card)),
         ''
     )
     container.append(cardsDiv)
 }
+
 showCards(cards)
 
 const cardsList = document.querySelectorAll('.hide-swap')
@@ -50,12 +48,6 @@ let cardsVisible = []
 const cancelCardActive = () => {
     cardsList.forEach((card) => {
         card.classList.remove('active')
-    })
-}
-
-const removeClassVisible = () => {
-    cardsList.forEach((card) => {
-        card.classList.remove('visible')
     })
 }
 
@@ -77,35 +69,48 @@ const resetGame = () => {
     const resetBtn = document.querySelector('.victory__btn')
     resetBtn.addEventListener('click', (e) => {
         e.preventDefault()
-        showCards(cards)
-        messageBlock.remove()
+        location.reload()
     })
 }
 
 const resetCards = () => {
     const cardsLength = document.querySelectorAll('.visible').length
     if (cardsLength == 12) {
-        setTimeout(() => messageVictory(), 100)
+        setTimeout(() => messageVictory(), 800)
     }
 }
 
 const changeCard = () => {
+    let count = 0
     if (cardsVisible[0] == cardsVisible[1]) {
         cardsVisible = []
         cardsList.forEach((item) => {
             if (item.classList.contains('active')) {
-                item.classList.add('visible')
+                count++
             }
         })
+        if (count < 2) {
+            cardsVisible = []
+            cancelCardActive()
+        } else {
+            cardsList.forEach((item) => {
+                if (item.classList.contains('active')) {
+                    item.classList.add('visible')
+                }
+            })
+        }
     } else {
         cardsVisible = []
-        setTimeout(() => cancelCardActive(), 600)
     }
+    setTimeout(() => cancelCardActive(), 600)
     resetCards()
 }
 
 const showContent = ({ target }) => {
-    if (!target.parentElement.classList.contains('container')) {
+    if (
+        !target.parentElement.classList.contains('container') &&
+        !target.classList.contains('hide-swap')
+    ) {
         target.parentElement.classList.toggle('active')
         if (target.parentElement.classList.contains('active')) {
             cardsVisible.push(target.dataset.card)
@@ -113,9 +118,8 @@ const showContent = ({ target }) => {
             cardsVisible.pop()
         }
     }
-
     if (cardsVisible.length == 2) {
-        setTimeout(() => changeCard(), 200)
+        changeCard()
     }
 }
 
