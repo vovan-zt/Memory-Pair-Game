@@ -1,18 +1,18 @@
 'use strict'
 
 const cards = [
-    { name: 'naruto', image: 'img/7.png' },
-    { name: 'uchiha', image: 'img/8.png' },
-    { name: 'sai', image: 'img/9.png' },
-    { name: 'kakashi', image: 'img/10.png' },
-    { name: 'minato', image: 'img/11.png' },
-    { name: 'zetsu', image: 'img/12.png' },
+    { name: 'asuma', image: 'img/13.jpg' },
+    { name: 'hinata', image: 'img/14.jpg' },
+    { name: 'naruto', image: 'img/15.jpg' },
+    { name: 'gaara', image: 'img/16.jpg' },
+    { name: 'kakashi', image: 'img/17.jpg' },
+    { name: 'yamato', image: 'img/18.jpg' },
 ]
 
 cards.push(...cards)
 
-const sortingCards = (cards) => {
-    cards.sort(() => {
+const sortingCards = (dataBase) => {
+    dataBase.sort(() => {
         return 0.5 - Math.random()
     })
 }
@@ -28,10 +28,13 @@ const generateCards = ({ name, image }) => {
         `
 }
 
+const cardsDiv = document.createElement('div')
+cardsDiv.classList.add('wrapper')
+
 const showCards = (dataBase) => {
-    sortingCards(cards)
-    const cardsDiv = document.createElement('div')
-    cardsDiv.classList.add('wrapper')
+    sortingCards(dataBase)
+
+    cardsDiv.innerHTML = ''
     cardsDiv.innerHTML = dataBase.reduce(
         (acc, card) => (acc += generateCards(card)),
         ''
@@ -42,7 +45,6 @@ showCards(cards)
 
 const cardsList = document.querySelectorAll('.hide-swap')
 const wrapper = document.querySelector('.wrapper')
-
 let cardsVisible = []
 
 const cancelCardActive = () => {
@@ -57,9 +59,10 @@ const removeClassVisible = () => {
     })
 }
 
+const messageBlock = document.createElement('div')
+messageBlock.classList.add('victory')
+
 const messageVictory = () => {
-    const messageBlock = document.createElement('div')
-    messageBlock.classList.add('victory')
     messageBlock.innerHTML = `
             <h2 class= "victory__title">Сongratulations you won</h2>
             <div class= "victory__descr">press reset to start over</div>
@@ -67,50 +70,52 @@ const messageVictory = () => {
 
     `
     container.append(messageBlock)
+    resetGame()
 }
 
 const resetGame = () => {
     const resetBtn = document.querySelector('.victory__btn')
     resetBtn.addEventListener('click', (e) => {
         e.preventDefault()
-        location.reload()
+        showCards(cards)
+        messageBlock.remove()
     })
 }
 
 const resetCards = () => {
     const cardsLength = document.querySelectorAll('.visible').length
     if (cardsLength == 12) {
-        setTimeout(() => cancelCardActive(), 300)
-        setTimeout(() => removeClassVisible(), 400)
-        setTimeout(() => messageVictory(), 1500)
-        setTimeout(() => resetGame(), 1700)
+        setTimeout(() => messageVictory(), 100)
     }
 }
 
 const changeCard = () => {
-    console.log(cardsVisible)
-    if (cardsVisible.length == 2 && cardsVisible[0] == cardsVisible[1]) {
+    if (cardsVisible[0] == cardsVisible[1]) {
         cardsVisible = []
         cardsList.forEach((item) => {
             if (item.classList.contains('active')) {
                 item.classList.add('visible')
             }
         })
-    } else if (
-        cardsVisible.length == 2 &&
-        cardsVisible[0] !== cardsVisible[1]
-    ) {
+    } else {
         cardsVisible = []
         setTimeout(() => cancelCardActive(), 600)
     }
+    resetCards()
 }
 
 const showContent = ({ target }) => {
     if (!target.parentElement.classList.contains('container')) {
         target.parentElement.classList.toggle('active')
-        cardsVisible.push(target.dataset.card)
-        changeCard()
-        resetCards()
+        if (target.parentElement.classList.contains('active')) {
+            cardsVisible.push(target.dataset.card)
+        } else {
+            cardsVisible.pop()
+        }
+    }
+
+    if (cardsVisible.length == 2) {
+        setTimeout(() => changeCard(), 200)
     }
 }
 
