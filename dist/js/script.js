@@ -1,5 +1,7 @@
 'use strict'
 
+
+
 const cards = [
     { name: 'asuma', image: 'img/13.jpg' },
     { name: 'hinata', image: 'img/14.jpg' },
@@ -49,7 +51,7 @@ const messageVictory = () => {
     messageBlock.classList.add('victory')
     messageBlock.innerHTML = `
         <h2 class= "victory__title">Сongratulations you won</h2>
-        <div class= "victory__descr">press reset to start over</div>
+        <div class= "victory__desc">press reset to start over</div>
         <button class= "victory__btn">Reset</button>
     `
     container.append(messageBlock)
