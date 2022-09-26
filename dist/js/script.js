@@ -1,7 +1,5 @@
 'use strict'
 
-
-
 const cards = [
     { name: 'asuma', image: 'img/13.jpg' },
     { name: 'hinata', image: 'img/14.jpg' },
@@ -50,7 +48,7 @@ const messageVictory = () => {
     const messageBlock = document.createElement('div')
     messageBlock.classList.add('victory')
     messageBlock.innerHTML = `
-        <h2 class= "victory__title">Сongratulations you won</h2>
+        <h2 class= "victory__title">Сongratulation you won</h2>
         <div class= "victory__desc">press reset to start over</div>
         <button class= "victory__btn">Reset</button>
     `
@@ -102,7 +100,7 @@ const changeCard = () => {
     cancelCardActive()
 }
 
-const checkCardsVisiblesLength = () => {
+const checkCardsVisibleLength = () => {
     if (cardsVisible.length === 2) {
         changeCard()
     } else {
@@ -117,7 +115,7 @@ const showContent = ({ target }) => {
         target.closest('.hide-swap').classList.add('active')
         cardsVisible.push(target.dataset.card)
         lockWrapper = true
-        checkCardsVisiblesLength()
+        checkCardsVisibleLength()
     }
     checkForWin()
 }

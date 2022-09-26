@@ -26,8 +26,6 @@
 
 .wrapper {
 	margin: 0 auto;
-	//width: 1200px;
-	//height: 600px;
 	display: grid;
 	justify-content: center;
 	grid-template-columns: repeat(4, 200px);
@@ -124,44 +122,6 @@
 	}
 	
 }
-
-
-// @media screen and (min-width: 320px) and (orientation: portrait) { 
-// 	.wrapper {
-// 		grid-template-columns: repeat(4, 65px);
-// 		grid-template-rows: repeat(3, 100px);
-// 	}
-// }
-
-// @media screen and (min-width: 375px) and (orientation: portrait) { 
-// 	.wrapper {
-// 		grid-template-columns: repeat(4, 75px);
-// 		grid-template-rows: repeat(3, 110px);
-// 	}
-// }
-
-// @media screen and (min-width: 425px) and (orientation: portrait) { 
-// 	.wrapper {
-// 		grid-template-columns: repeat(4, 85px);
-// 		grid-template-rows: repeat(3, 125px);
-// 	}
-// }
-
-// @media screen and (min-width: 766px)  { 
-// 	.wrapper {
-// 		grid-template-columns: repeat(4, 135px);
-// 		grid-template-rows: repeat(3, 185px);
-// 	}
-// }
-
-// @media screen and (min-width: 1200px) { 
-// 	.wrapper {
-// 		grid-template-columns: repeat(4, 200px);
-// 		grid-template-rows: repeat(3, 275px);
-// 	}
-// }
-
-
 
 @media screen and (max-width: 1200px) { 
 	.wrapper {
