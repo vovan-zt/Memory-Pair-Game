@@ -11,9 +11,9 @@ const cards = [
 
 const container = document.querySelector('.container')
 const wrapper = document.querySelector('.wrapper')
-const cardsList = document.getElementsByClassName('hide-swap')
+const cardsList = document.getElementsByClassName('card')
 let cardsVisible = []
-let lockWrapper = false
+let isWrapperLocked = false
 
 cards.push(...cards)
 
@@ -25,9 +25,9 @@ const shuffleCards = () => {
 
 const generateCards = ({ name, image }) => {
     return `
-        <div class ="hide-swap">
-            <div class="c1" data-card='${name}'></div>
-            <img class="c2" src="${image}" alt="${name}">
+        <div class ="card">
+            <div class="card__front-side" data-card='${name}'></div>
+            <img class="card__back-side" src="${image}" alt="${name}">
         </div>
     `
 }
@@ -58,8 +58,7 @@ const messageVictory = () => {
 
 const restartGame = (messageBlock) => {
     const resetBtn = document.querySelector('.victory__btn')
-    resetBtn.addEventListener('click', (e) => {
-        e.preventDefault()
+    resetBtn.addEventListener('click', () => {
         showCards(cards)
         messageBlock.remove()
     })
@@ -69,26 +68,21 @@ const cancelCardActive = () => {
     setTimeout(() => {
         Array.from(cardsList).forEach((card) => {
             card.classList.remove('active')
-            lockWrapper = false
         })
+        isWrapperLocked = false
     }, 800)
-    lockWrapper = true
+    isWrapperLocked = true
 }
 
 const changeCard = () => {
-    let count = 0
+    const activeCards = document.querySelectorAll('.active')
     if (cardsVisible[0] == cardsVisible[1]) {
         cardsVisible = []
-        Array.from(cardsList).forEach((item) => {
-            if (item.classList.contains('active')) {
-                count++
-            }
-        })
-        if (count < 2) {
+        if (activeCards.length < 2) {
             cardsVisible = []
             cancelCardActive()
         } else {
-            Array.from(cardsList).forEach((item) => {
+            activeCards.forEach((item) => {
                 if (item.classList.contains('active')) {
                     item.classList.add('visible')
                 }
@@ -104,17 +98,19 @@ const checkCardsVisibleLength = () => {
     if (cardsVisible.length === 2) {
         changeCard()
     } else {
-        setTimeout(() => (lockWrapper = false), 300)
+        setTimeout(() => (isWrapperLocked = false), 300)
     }
 }
 
 const showContent = ({ target }) => {
-    if (lockWrapper) return
-
-    if (target.closest('.hide-swap') && !target.classList.contains('c2')) {
-        target.closest('.hide-swap').classList.add('active')
+    if (isWrapperLocked) return
+    if (
+        target.closest('.card') &&
+        !target.classList.contains('card__back-side')
+    ) {
+        target.closest('.card').classList.add('active')
         cardsVisible.push(target.dataset.card)
-        lockWrapper = true
+        isWrapperLocked = true
         checkCardsVisibleLength()
     }
     checkForWin()
