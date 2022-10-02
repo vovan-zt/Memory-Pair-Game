@@ -11,7 +11,7 @@ const cards = [
 
 const container = document.querySelector('.container')
 const wrapper = document.querySelector('.wrapper')
-const cardsList = document.getElementsByClassName('card')
+const cardsList = document.getElementsByClassName('active')
 let cardsVisible = []
 let isWrapperLocked = false
 
@@ -64,7 +64,7 @@ const restartGame = (messageBlock) => {
     })
 }
 
-const cancelCardActive = () => {
+const deactivateCards = () => {
     setTimeout(() => {
         Array.from(cardsList).forEach((card) => {
             card.classList.remove('active')
@@ -80,7 +80,7 @@ const changeCard = () => {
         cardsVisible = []
         if (activeCards.length < 2) {
             cardsVisible = []
-            cancelCardActive()
+            deactivateCards()
         } else {
             activeCards.forEach((item) => {
                 if (item.classList.contains('active')) {
@@ -91,7 +91,7 @@ const changeCard = () => {
     } else {
         cardsVisible = []
     }
-    cancelCardActive()
+    deactivateCards()
 }
 
 const checkCardsVisibleLength = () => {
